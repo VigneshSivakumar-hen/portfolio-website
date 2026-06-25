@@ -61,7 +61,7 @@ git clone https://github.com/yourusername/portfolio-website.git
 
 ## Live Demo
 
-https://yourusername.github.io/portfolio-website/
+https://vigneshsivakumar-hen.github.io/portfolio-website/
 
 ## Contact
 
@@ -69,7 +69,7 @@ Email: vigneshsivakumar495@gmail.com
 
 LinkedIn: https://linkedin.com/in/yourprofile
 
-GitHub: https://github.com/yourusername
+GitHub: https://vigneshsivakumar-hen.github.io/portfolio-website/
 
 ## License
 
