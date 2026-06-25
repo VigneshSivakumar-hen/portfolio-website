@@ -1,38 +1,59 @@
-# Personal Portfolio Website
+# Vignesh S - Data Science Portfolio
 
-This is my personal portfolio website showcasing my skills, projects, education, certifications, and contact information.
+Welcome to my personal portfolio website. This website showcases my skills, projects, education, and achievements in Artificial Intelligence and Data Science.
 
 ## About Me
 
-I am Vignesh S, a B.Tech student in Artificial Intelligence and Data Science with interests in Machine Learning, Data Analytics, and Web Development.
+I am a B.Tech student specializing in Artificial Intelligence and Data Science. I am passionate about Machine Learning, Data Analytics, Data Visualization, and Software Development. I enjoy building data-driven solutions to solve real-world problems.
 
 ## Features
 
-- Responsive design
-- About Me section
-- Skills showcase
-- Project portfolio
-- Resume download
-- Contact information
+* Responsive Portfolio Website
+* About Me Section
+* Technical Skills Showcase
+* Project Portfolio
+* Contact Information
+* Modern User Interface
+* Mobile-Friendly Design
 
 ## Technologies Used
 
-- HTML5
-- CSS3
-- JavaScript
+* HTML5
+* CSS3
+* JavaScript
 
-## Projects Included
+## Projects
 
-- Network Anomaly Detection System
-- Machine Learning Projects
-- Data Analysis Projects
+### Network Anomaly Detection System
+
+Developed a machine learning-based intrusion detection system using the NSL-KDD dataset to identify malicious network activities.
+
+### Data Analytics Dashboard
+
+Created interactive dashboards for data visualization and business intelligence using Power BI.
+
+### Machine Learning Classification Model
+
+Built classification models using Python and Scikit-Learn for predictive analytics.
+
+## Skills
+
+* Python
+* Machine Learning
+* Data Analysis
+* SQL
+* Power BI
+* HTML
+* CSS
+* JavaScript
 
 ## Installation
 
 1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/portfolio-website.git
-   ```
+
+```bash
+git clone https://github.com/yourusername/portfolio-website.git
+```
 
 2. Open the project folder.
 
@@ -40,40 +61,20 @@ I am Vignesh S, a B.Tech student in Artificial Intelligence and Data Science wit
 
 ## Live Demo
 
-Website: https://yourusername.github.io/portfolio-website/
+https://yourusername.github.io/portfolio-website/
 
 ## Contact
 
-Email: your-email@example.com
+Email: vigneshsivakumar495@gmail.com
 
-LinkedIn: https://linkedin.com/in/your-profile
+LinkedIn: https://linkedin.com/in/yourprofile
 
 GitHub: https://github.com/yourusername
 
 ## License
 
-This project is open source and available under the MIT License.
+This project is open-source and available under the MIT License.
 
-For internship applications, a shorter README is often even better:
+---
 
-# Portfolio Website
-
-Personal portfolio website built using HTML, CSS, and JavaScript.
-
-## Features
-- Responsive design
-- Projects showcase
-- Skills section
-- Resume download
-- Contact information
-
-## Tech Stack
-- HTML
-- CSS
-- JavaScript
-
-## Live Website
-https://yourusername.github.io/portfolio-website/
-
-## Author
-Vignesh S
+© 2026 Vignesh S. All Rights Reserved.
