@@ -306,11 +306,16 @@ footer{
 }
 /* Dark Mode Button */
 
+/* ==========================
+   Dark Mode Button
+========================== */
+
 #theme-toggle{
     background:#38bdf8;
-    border:none;
     color:white;
-    padding:10px 15px;
+    border:none;
+    width:45px;
+    height:45px;
     border-radius:50%;
     cursor:pointer;
     font-size:18px;
@@ -318,34 +323,84 @@ footer{
 }
 
 #theme-toggle:hover{
-    transform:rotate(20deg);
+    transform:rotate(20deg) scale(1.1);
 }
 
-/* Dark Theme */
+/* ==========================
+   Dark Theme
+========================== */
 
 body.dark{
     background:#0f172a;
     color:#f1f5f9;
 }
 
+/* Header */
+body.dark header{
+    background:#020617;
+}
+
+/* Hero */
+body.dark #hero{
+    background:linear-gradient(135deg,#020617,#1e293b);
+}
+
+/* Section Titles */
 body.dark section h2{
     color:#38bdf8;
 }
 
+/* About */
+body.dark #about p{
+    color:#e2e8f0;
+}
+
+/* Cards */
 body.dark .project-card,
 body.dark .certificate-card{
     background:#1e293b;
     color:white;
 }
 
+body.dark .project-card h3,
+body.dark .certificate-card h3{
+    color:#38bdf8;
+}
+
+/* Skills */
+body.dark .skill{
+    background:#334155;
+    color:white;
+}
+
+body.dark .skill:hover{
+    background:#38bdf8;
+}
+
+/* Contact */
+body.dark #contact{
+    color:white;
+}
+
+body.dark #contact a{
+    color:#38bdf8;
+}
+
+/* Footer */
 body.dark footer{
     background:#020617;
 }
 
-body.dark .skill{
-    background:#334155;
+/* Links */
+body.dark a{
+    color:#38bdf8;
 }
 
-body.dark .skill:hover{
+/* Scrollbar */
+body.dark ::-webkit-scrollbar-track{
+    background:#1e293b;
+}
+
+body.dark ::-webkit-scrollbar-thumb{
     background:#38bdf8;
 }
