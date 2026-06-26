@@ -304,3 +304,48 @@ footer{
 .certificate-card p{
     margin-bottom:20px;
 }
+/* Dark Mode Button */
+
+#theme-toggle{
+    background:#38bdf8;
+    border:none;
+    color:white;
+    padding:10px 15px;
+    border-radius:50%;
+    cursor:pointer;
+    font-size:18px;
+    transition:0.3s;
+}
+
+#theme-toggle:hover{
+    transform:rotate(20deg);
+}
+
+/* Dark Theme */
+
+body.dark{
+    background:#0f172a;
+    color:#f1f5f9;
+}
+
+body.dark section h2{
+    color:#38bdf8;
+}
+
+body.dark .project-card,
+body.dark .certificate-card{
+    background:#1e293b;
+    color:white;
+}
+
+body.dark footer{
+    background:#020617;
+}
+
+body.dark .skill{
+    background:#334155;
+}
+
+body.dark .skill:hover{
+    background:#38bdf8;
+}
