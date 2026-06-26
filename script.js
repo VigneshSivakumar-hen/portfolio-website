@@ -1,53 +1,64 @@
 // Welcome Message
 window.addEventListener("load", () => {
-    console.log("Welcome to Vignesh's Portfolio Website!");
+    console.log("Welcome to Vignesh S Portfolio");
 });
 
-// Smooth Scroll for Navigation Links
+// Smooth scrolling for navigation links
 document.querySelectorAll('nav a').forEach(link => {
-    link.addEventListener('click', function(e) {
+    link.addEventListener('click', function (e) {
         e.preventDefault();
 
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
+        const target = document.querySelector(this.getAttribute('href'));
 
-        targetSection.scrollIntoView({
-            behavior: 'smooth'
-        });
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
     });
 });
 
-// Active Navigation Link
+// Highlight active navigation link
 const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll("nav ul li a");
+const navLinks = document.querySelectorAll("nav a");
 
 window.addEventListener("scroll", () => {
+
     let current = "";
 
     sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
+        const sectionTop = section.offsetTop - 120;
 
-        if (window.scrollY >= sectionTop) {
+        if (pageYOffset >= sectionTop) {
             current = section.getAttribute("id");
         }
     });
 
     navLinks.forEach(link => {
+
         link.classList.remove("active");
 
-        if (link.getAttribute("href").includes(current)) {
+        if (link.getAttribute("href") === "#" + current) {
             link.classList.add("active");
         }
+
     });
+
 });
 
-// Fade-in Animation on Scroll
-const observer = new IntersectionObserver(entries => {
+// Fade-in animation while scrolling
+const observer = new IntersectionObserver((entries) => {
+
     entries.forEach(entry => {
+
         if (entry.isIntersecting) {
             entry.target.classList.add("show");
         }
+
     });
+
+}, {
+    threshold: 0.2
 });
 
 document.querySelectorAll("section").forEach(section => {
