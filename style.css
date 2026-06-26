@@ -274,3 +274,33 @@ footer{
         padding:60px 20px;
     }
 }
+/* Certificates */
+
+.certificate-container{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
+}
+
+.certificate-card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.certificate-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+}
+
+.certificate-card h3{
+    color:#0f172a;
+    margin-bottom:15px;
+}
+
+.certificate-card p{
+    margin-bottom:20px;
+}
