@@ -61,7 +61,7 @@ git clone https://github.com/VigneshSivakumar-hen/portfolio-website.git
 
 ## Live Demo
 
-https:/vigneshsivakumar-hen.github.io/portfolio-website/
+https://vigneshsivakumar-hen.github.io/portfolio-website/
 
 ## Contact
 
