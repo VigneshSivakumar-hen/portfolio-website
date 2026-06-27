@@ -52,7 +52,7 @@ Built classification models using Python and Scikit-Learn for predictive analyti
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/yourusername/portfolio-website.git
+git clone https:///vigneshsivakumar-hen/portfolio-website.git
 ```
 
 2. Open the project folder.
@@ -61,7 +61,7 @@ git clone https://github.com/yourusername/portfolio-website.git
 
 ## Live Demo
 
-https://vigneshsivakumar-hen.github.io/portfolio-website/
+https:/vigneshsivakumar-hen.github.io/portfolio-website/
 
 ## Contact
 
