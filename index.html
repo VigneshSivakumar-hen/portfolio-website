@@ -1,265 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vignesh S | AI & Data Science Portfolio</title>
-
-    <link rel="stylesheet" href="style.css">
-
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Vignesh S | AI & Data Science Portfolio</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#060d1a;color:#f1f5f9;overflow-x:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0f172a}
+::-webkit-scrollbar-thumb{background:linear-gradient(#38bdf8,#6366f1);border-radius:99px}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+@keyframes floatA{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(30px,20px) scale(1.1)}}
+@keyframes floatB{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,15px)}}
+@keyframes pulse{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+</style>
+</head>
 <body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef}=React;
 
-    <!-- Header -->
-    <header>
-        <nav>
+const NAV=[{id:'hero',label:'Home'},{id:'about',label:'About'},{id:'skills',label:'Skills'},{id:'projects',label:'Projects'},{id:'certs',label:'Certificates'},{id:'contact',label:'Contact'}];
 
-            <h2>Vignesh S</h2>
+const SKILLS=[
+  {icon:'🐍',name:'Python',pct:88,color:'#38bdf8'},
+  {icon:'🤖',name:'Machine Learning',pct:82,color:'#6366f1'},
+  {icon:'🧠',name:'Deep Learning',pct:72,color:'#a78bfa'},
+  {icon:'🗃️',name:'SQL',pct:80,color:'#34d399'},
+  {icon:'📊',name:'Power BI',pct:75,color:'#f59e0b'},
+  {icon:'🐼',name:'Pandas',pct:85,color:'#38bdf8'},
+  {icon:'🔢',name:'NumPy',pct:84,color:'#6366f1'},
+  {icon:'⚙️',name:'Scikit-Learn',pct:80,color:'#a78bfa'},
+  {icon:'🔥',name:'TensorFlow',pct:68,color:'#f59e0b'},
+  {icon:'🌐',name:'HTML/CSS/JS',pct:78,color:'#34d399'},
+  {icon:'🐙',name:'Git & GitHub',pct:82,color:'#38bdf8'},
+  {icon:'📓',name:'Jupyter',pct:88,color:'#6366f1'},
+];
 
-            <ul>
-                <li><a href="#hero">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#certificates">Certificates</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+const PROJECTS=[
+  {emoji:'🛡️',title:'Network Anomaly Detection',type:'Machine Learning',desc:'ML-based intrusion detection using NSL-KDD dataset. Data preprocessing, feature selection, and classification algorithms to distinguish malicious from normal traffic.',tags:['Python','Pandas','NumPy','Scikit-Learn'],c1:'rgba(56,189,248,0.15)',c2:'rgba(99,102,241,0.1)',border:'#38bdf8'},
+  {emoji:'📊',title:'Data Analytics Dashboard',type:'Data Visualisation',desc:'Interactive Power BI dashboards for business insights, KPI tracking, and data visualisation for stakeholder reporting.',tags:['Power BI','SQL','Data Analysis'],c1:'rgba(167,139,250,0.15)',c2:'rgba(56,189,248,0.08)',border:'#a78bfa'},
+  {emoji:'🎓',title:'Student Performance Prediction',type:'Predictive Analytics',desc:'Classification models using Python and Scikit-Learn to predict student academic performance. Applied EDA, feature engineering, and model evaluation.',tags:['Python','Scikit-Learn','Matplotlib','Seaborn'],c1:'rgba(52,211,153,0.12)',c2:'rgba(56,189,248,0.06)',border:'#34d399'},
+];
 
-            <button id="theme-toggle" aria-label="Toggle dark mode">
-                🌙
-            </button>
+const CERTS=[
+  {icon:'🏢',org:'BCG X',title:'Data Science Job Simulation',desc:'Data analytics, business insights, and predictive modeling in a real consulting context.',color:'#38bdf8'},
+  {icon:'💼',org:'Kodacy',title:'ML Internship Certificate',desc:'Data preprocessing, model building, and evaluation across multiple ML tasks.',color:'#a78bfa'},
+  {icon:'🔵',org:'IBM',title:'Professional Certifications',desc:'Multiple IBM certifications in AI, Data Science, Python, and Machine Learning.',color:'#f59e0b'},
+  {icon:'🎓',org:'NPTEL / IIT',title:'NPTEL Certification',desc:'Completed NPTEL course certified by IIT faculty.',color:'#34d399'},
+];
 
-        </nav>
-    </header>
-    <!-- Hero -->
-    <section id="hero">
+const COMPETENCIES=['Problem Solving','Analytical Thinking','Data Interpretation','EDA','Feature Engineering','Model Evaluation','Statistical Analysis','Predictive Analytics','Critical Thinking','Teamwork'];
 
-        <div class="hero-content">
+function useInView(ref,th=0.15){
+  const [v,setV]=useState(false);
+  useEffect(()=>{
+    const o=new IntersectionObserver(([e])=>{if(e.isIntersecting)setV(true);},{threshold:th});
+    if(ref.current)o.observe(ref.current);
+    return()=>o.disconnect();
+  },[]);
+  return v;
+}
 
-            <h1>Hi, I'm Vignesh S 👋</h1>
-
-            <h3>Artificial Intelligence & Data Science Student</h3>
-
-            <p>
-                Passionate about Machine Learning, Data Science,
-                Artificial Intelligence, Python Development,
-                Data Analytics, and solving real-world problems using technology.
-            </p>
-
-            <div class="hero-buttons">
-
-                <a href="#projects" class="btn">
-                    View Projects
-                </a>
-
-                <a href="Vignesh_S_Resume.pdf" target="_blank" class="btn">
-                    View Resume
-                </a>
-
-                <a href="Vignesh_S_Resume.pdf" download class="btn">
-                    Download Resume
-                </a>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- About -->
-    <section id="about">
-
-        <h2>About Me</h2>
-
-        <p>
-            I am currently pursuing a Bachelor of Technology in Artificial
-            Intelligence and Data Science at St. Peter's College of Engineering
-            and Technology. I am passionate about Machine Learning, Data
-            Analytics, Artificial Intelligence, and Software Development.
-            I enjoy building real-world AI solutions and continuously improving
-            my technical skills.
-        </p>
-
-    </section>
-
-    <!-- Skills -->
-    <section id="skills">
-
-        <h2>Technical Skills</h2>
-
-        <div class="skills-container">
-
-            <div class="skill">Python</div>
-            <div class="skill">Machine Learning</div>
-            <div class="skill">Deep Learning</div>
-            <div class="skill">SQL</div>
-            <div class="skill">Power BI</div>
-            <div class="skill">Pandas</div>
-            <div class="skill">NumPy</div>
-            <div class="skill">Scikit-Learn</div>
-            <div class="skill">TensorFlow</div>
-            <div class="skill">HTML5</div>
-            <div class="skill">CSS3</div>
-            <div class="skill">JavaScript</div>
-            <div class="skill">Git & GitHub</div>
-
-        </div>
-
-    </section>
-
-    <!-- Projects -->
-    <section id="projects">
-
-        <h2>Projects</h2>
-
-        <div class="project-card">
-            <h3>Network Anomaly Detection System</h3>
-
-            <p>
-                Developed a Machine Learning-based intrusion detection system
-                using the NSL-KDD dataset for identifying malicious network
-                traffic.
-            </p>
-        </div>
-
-        <div class="project-card">
-
-            <h3>Data Analytics Dashboard</h3>
-
-            <p>
-                Designed interactive Power BI dashboards for business insights,
-                reporting, and data visualization.
-            </p>
-
-        </div>
-
-        <div class="project-card">
-
-            <h3>Student Performance Prediction</h3>
-
-            <p>
-                Built predictive Machine Learning models using Python and
-                Scikit-Learn to classify student performance.
-            </p>
-
-        </div>
-
-    </section>
-  <section id="certificates">
-
-    <h2>Certificates</h2>
-
-    <div class="certificate-container">
-
-        <div class="certificate-card">
-            <h3>BCG X – Data Science Job Simulation</h3>
-
-            <p>
-                Completed the BCG X Data Science Job Simulation focused on data analytics,
-                business insights, and predictive modeling.
-            </p>
-
-            <a href="certificates/BCG_X_Job_Simulation_Certificate.pdf"
-               target="_blank"
-               class="btn">
-                View Certificate
-            </a>
-        </div>
-
-        <div class="certificate-card">
-            <h3>Kodacy Machine Learning Internship</h3>
-
-            <p>
-                Successfully completed a Machine Learning Internship involving
-                data preprocessing, model building, and evaluation.
-            </p>
-
-            <a href="certificates/Kodacy_Machine_Learning_Internship_Certificate.pdf"
-               target="_blank"
-               class="btn">
-                View Certificate
-            </a>
-        </div>
-
-        <div class="certificate-card">
-            <h3>IBM Professional Certifications</h3>
-
-            <p>
-                Successfully completed multiple IBM certifications in Artificial Intelligence,
-                Data Science, Python, and Machine Learning.
-            </p>
-
-            <a href="certificates/IBM_Certificate_1.pdf"
-               target="_blank"
-               class="btn">
-                IBM Certificate 1
-            </a>
-
-            <br><br>
-
-            <a href="certificates/IBM_Certificate_2.pdf"
-               target="_blank"
-               class="btn">
-                IBM Certificate 2
-            </a>
-
-            <br><br>
-
-            <a href="certificates/IBM_Certificate_3.pdf"
-               target="_blank"
-               class="btn">
-                IBM Certificate 3
-            </a>
-
-        </div>
-
-        <div class="certificate-card">
-            <h3>NPTEL Certification</h3>
-
-            <p>
-                Successfully completed an NPTEL course certified by IIT faculty.
-            </p>
-
-            <a href="certificates/NPTEL_Certificate.pdf"
-               target="_blank"
-               class="btn">
-                View Certificate
-            </a>
-        </div>
-
+function Reveal({children,delay=0,style={}}){
+  const ref=useRef(null);
+  const v=useInView(ref);
+  return(
+    <div ref={ref} style={{opacity:v?1:0,transform:v?'none':'translateY(28px)',transition:`opacity .65s ease ${delay}ms, transform .65s ease ${delay}ms`,...style}}>
+      {children}
     </div>
+  );
+}
 
-</section>
-    <!-- Contact -->
-    <section id="contact">
+function ParticleCanvas(){
+  const ref=useRef(null);
+  useEffect(()=>{
+    const c=ref.current; if(!c)return;
+    const ctx=c.getContext('2d');
+    let id,pts=[];
+    const resize=()=>{
+      c.width=c.offsetWidth; c.height=c.offsetHeight;
+      const n=Math.min(Math.floor((c.width*c.height)/7000),110);
+      pts=Array.from({length:n},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.8+0.4,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,a:Math.random()*.5+.15}));
+    };
+    const draw=()=>{
+      ctx.clearRect(0,0,c.width,c.height);
+      for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+        const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.hypot(dx,dy);
+        if(d<130){ctx.strokeStyle=`rgba(99,102,241,${(1-d/130)*.15})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.stroke();}
+      }
+      pts.forEach(p=>{
+        ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(56,189,248,${p.a})`;
+        ctx.shadowBlur=6;ctx.shadowColor='rgba(56,189,248,.5)';ctx.fill();ctx.shadowBlur=0;
+        p.x+=p.vx;p.y+=p.vy;
+        if(p.x<0)p.x=c.width;if(p.x>c.width)p.x=0;
+        if(p.y<0)p.y=c.height;if(p.y>c.height)p.y=0;
+      });
+      id=requestAnimationFrame(draw);
+    };
+    resize();draw();
+    window.addEventListener('resize',resize);
+    return()=>{cancelAnimationFrame(id);window.removeEventListener('resize',resize);};
+  },[]);
+  return <canvas ref={ref} style={{position:'absolute',inset:0,width:'100%',height:'100%',pointerEvents:'none',zIndex:0}}/>;
+}
 
-        <h2>Contact Me</h2>
+function Typewriter({words}){
+  const [txt,setTxt]=useState('');
+  const [wi,setWi]=useState(0);
+  const [ci,setCi]=useState(0);
+  const [del,setDel]=useState(false);
+  useEffect(()=>{
+    const w=words[wi];
+    const t=setTimeout(()=>{
+      if(!del){setTxt(w.slice(0,ci+1));if(ci+1===w.length){setDel(true);return;}setCi(c=>c+1);}
+      else{setTxt(w.slice(0,ci-1));if(ci-1===0){setDel(false);setWi(x=>(x+1)%words.length);setCi(0);return;}setCi(c=>c-1);}
+    },del?42:88);
+    return()=>clearTimeout(t);
+  },[txt,wi,ci,del]);
+  return(
+    <span style={{fontFamily:'JetBrains Mono,monospace',color:'#f59e0b',fontSize:'clamp(.95rem,2.5vw,1.2rem)'}}>
+      {txt}<span style={{display:'inline-block',width:2,height:'1em',background:'#f59e0b',marginLeft:2,verticalAlign:'text-bottom',animation:'blink .9s steps(1) infinite'}}/>
+    </span>
+  );
+}
 
-        <p>📧 Email: <strong>vigneshsivakumar495@gmail.com</strong></p>
+function SkillBar({icon,name,pct,color,delay}){
+  const ref=useRef(null);
+  const v=useInView(ref,.3);
+  return(
+    <div ref={ref} style={{marginBottom:14}}>
+      <div style={{display:'flex',justifyContent:'space-between',marginBottom:5,fontSize:'.82rem',color:'#cbd5e1'}}>
+        <span>{icon} {name}</span>
+        <span style={{fontFamily:'JetBrains Mono,monospace',color,fontSize:'.75rem'}}>{pct}%</span>
+      </div>
+      <div style={{height:6,background:'rgba(255,255,255,0.06)',borderRadius:99,overflow:'hidden'}}>
+        <div style={{height:'100%',borderRadius:99,background:`linear-gradient(90deg,${color},${color}99)`,width:v?`${pct}%`:'0%',transition:`width 1.1s cubic-bezier(.4,0,.2,1) ${delay}ms`,boxShadow:`0 0 8px ${color}60`}}/>
+      </div>
+    </div>
+  );
+}
 
-        <p>
-            💼 <strong>LinkedIn:</strong>
-            <a href="https://www.linkedin.com/in/vignesh-s-04-11-2006-nov" target="_blank">
-                LinkedIn Profile
+function ProjCard({p,i}){
+  const [h,setH]=useState(false);
+  return(
+    <Reveal delay={i*120}>
+      <div onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}
+        style={{background:h?'rgba(15,23,42,.97)':'rgba(15,23,42,.75)',border:`1px solid ${h?p.border:'rgba(255,255,255,0.06)'}`,borderRadius:20,overflow:'hidden',transition:'all .3s ease',transform:h?'translateY(-8px)':'none',boxShadow:h?`0 20px 48px rgba(0,0,0,.5),0 0 32px ${p.border}22`:'0 4px 16px rgba(0,0,0,.3)',height:'100%',display:'flex',flexDirection:'column'}}>
+        <div style={{height:140,display:'flex',alignItems:'center',justifyContent:'center',fontSize:'3rem',background:`radial-gradient(ellipse at 30% 50%,${p.c1},transparent 70%), radial-gradient(ellipse at 70% 50%,${p.c2},transparent 70%), #0f172a`,position:'relative'}}>
+          <div style={{position:'absolute',inset:0,background:`radial-gradient(circle at 50% 50%,${p.border}10,transparent 65%)`}}/>
+          <span style={{position:'relative',filter:'drop-shadow(0 4px 12px rgba(0,0,0,.5))'}}>{p.emoji}</span>
+        </div>
+        <div style={{padding:'20px 22px 24px',flex:1,display:'flex',flexDirection:'column'}}>
+          <div style={{fontSize:'.68rem',color:p.border,textTransform:'uppercase',letterSpacing:'.12em',fontFamily:'JetBrains Mono,monospace',marginBottom:6}}>{p.type}</div>
+          <h3 style={{fontSize:'1rem',fontWeight:700,marginBottom:10,color:'#f1f5f9'}}>{p.title}</h3>
+          <p style={{fontSize:'.82rem',color:'#94a3b8',lineHeight:1.7,marginBottom:16,flex:1}}>{p.desc}</p>
+          <div style={{display:'flex',flexWrap:'wrap',gap:6}}>
+            {p.tags.map(t=>(
+              <span key={t} style={{background:`${p.border}18`,border:`1px solid ${p.border}35`,color:p.border,fontSize:'.68rem',padding:'3px 10px',borderRadius:99,fontFamily:'JetBrains Mono,monospace'}}>{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </Reveal>
+  );
+}
+
+function CertCard({c,i}){
+  const [h,setH]=useState(false);
+  return(
+    <Reveal delay={i*100}>
+      <div onMouseEnter={()=>setH(true)} onMouseLeave={()=>setH(false)}
+        style={{background:'rgba(15,23,42,.75)',border:`1px solid ${h?c.color:'rgba(255,255,255,0.06)'}`,borderRadius:18,padding:'24px 22px',height:'100%',transition:'all .3s ease',transform:h?'translateY(-6px)':'none',boxShadow:h?`0 16px 40px rgba(0,0,0,.4),0 0 24px ${c.color}18`:'0 4px 16px rgba(0,0,0,.2)'}}>
+        <div style={{width:44,height:44,borderRadius:12,background:`${c.color}15`,border:`1px solid ${c.color}30`,display:'flex',alignItems:'center',justifyContent:'center',fontSize:'1.3rem',marginBottom:12}}>{c.icon}</div>
+        <div style={{fontSize:'.65rem',color:c.color,textTransform:'uppercase',letterSpacing:'.12em',fontFamily:'JetBrains Mono,monospace',marginBottom:4}}>{c.org}</div>
+        <h3 style={{fontSize:'.95rem',fontWeight:700,color:'#f1f5f9',marginBottom:8}}>{c.title}</h3>
+        <p style={{fontSize:'.8rem',color:'#94a3b8',lineHeight:1.65,marginBottom:16}}>{c.desc}</p>
+        <span style={{display:'inline-flex',alignItems:'center',gap:5,background:`${c.color}18`,border:`1px solid ${c.color}35`,color:c.color,padding:'6px 14px',borderRadius:8,fontSize:'.72rem',fontWeight:600,fontFamily:'JetBrains Mono,monospace'}}>🏆 Certified</span>
+      </div>
+    </Reveal>
+  );
+}
+
+function SectionHead({label,title}){
+  return(
+    <Reveal>
+      <p style={{fontFamily:'JetBrains Mono,monospace',fontSize:'.7rem',color:'#38bdf8',textTransform:'uppercase',letterSpacing:'.14em',marginBottom:6}}>{label}</p>
+      <h2 style={{fontSize:'clamp(1.6rem,3.5vw,2.4rem)',fontWeight:800,letterSpacing:'-.02em',marginBottom:0,lineHeight:1.15}}>{title}</h2>
+      <div style={{width:56,height:4,background:'linear-gradient(90deg,#38bdf8,#6366f1)',borderRadius:4,margin:'12px 0 40px'}}/>
+    </Reveal>
+  );
+}
+
+function App(){
+  const [active,setActive]=useState('hero');
+
+  useEffect(()=>{
+    const ids=NAV.map(n=>n.id);
+    const h=()=>{
+      const y=window.scrollY+130;
+      let cur='hero';
+      ids.forEach(id=>{const el=document.getElementById(id);if(el&&el.offsetTop<=y)cur=id;});
+      setActive(cur);
+    };
+    window.addEventListener('scroll',h,{passive:true});
+    return()=>window.removeEventListener('scroll',h);
+  },[]);
+
+  const scrollTo=id=>document.getElementById(id)?.scrollIntoView({behavior:'smooth'});
+
+  return(
+    <>
+      {/* NAV */}
+      <nav style={{position:'fixed',top:0,left:0,right:0,zIndex:200,background:'rgba(6,13,26,.9)',backdropFilter:'blur(18px)',WebkitBackdropFilter:'blur(18px)',borderBottom:'1px solid rgba(56,189,248,.12)'}}>
+        <div style={{maxWidth:1200,margin:'auto',padding:'14px 28px',display:'flex',alignItems:'center',justifyContent:'space-between',gap:16,flexWrap:'wrap'}}>
+          <span style={{fontFamily:'JetBrains Mono,monospace',fontWeight:700,fontSize:'1.1rem',color:'#38bdf8',textShadow:'0 0 18px rgba(56,189,248,.4)'}}>VS<span style={{color:'#6366f1'}}>.</span>dev</span>
+          <div style={{display:'flex',gap:4,flexWrap:'wrap'}}>
+            {NAV.map(n=>(
+              <button key={n.id} onClick={()=>scrollTo(n.id)}
+                style={{background:'none',border:'none',cursor:'pointer',color:active===n.id?'#38bdf8':'#94a3b8',fontWeight:active===n.id?600:400,fontSize:'.82rem',fontFamily:'Inter,sans-serif',padding:'6px 12px',borderRadius:6,borderBottom:active===n.id?'2px solid #38bdf8':'2px solid transparent',transition:'all .2s'}}>
+                {n.label}
+              </button>
+            ))}
+          </div>
+          <a href="Vignesh_S_Resume.pdf" target="_blank" style={{background:'linear-gradient(135deg,#38bdf8,#6366f1)',color:'#fff',padding:'8px 18px',borderRadius:8,fontSize:'.8rem',fontWeight:600,textDecoration:'none',boxShadow:'0 4px 14px rgba(56,189,248,.35)'}}>Resume ↗</a>
+        </div>
+      </nav>
+
+      {/* HERO */}
+      <section id="hero" style={{minHeight:'100vh',display:'flex',alignItems:'center',justifyContent:'center',textAlign:'center',position:'relative',overflow:'hidden',padding:'110px 24px 70px',background:'radial-gradient(ellipse 70% 60% at 30% 40%,rgba(56,189,248,.13) 0%,transparent 60%),radial-gradient(ellipse 55% 55% at 75% 65%,rgba(99,102,241,.16) 0%,transparent 55%),linear-gradient(160deg,#020617 0%,#0f172a 50%,#0c1a35 100%)'}}>
+        <div style={{position:'absolute',width:500,height:500,borderRadius:'50%',background:'radial-gradient(circle,rgba(56,189,248,.09) 0%,transparent 70%)',top:-80,left:-120,animation:'floatA 14s ease-in-out infinite',pointerEvents:'none'}}/>
+        <div style={{position:'absolute',width:450,height:450,borderRadius:'50%',background:'radial-gradient(circle,rgba(99,102,241,.11) 0%,transparent 70%)',bottom:-60,right:-80,animation:'floatB 17s ease-in-out infinite',pointerEvents:'none'}}/>
+        <ParticleCanvas/>
+        <div style={{position:'relative',zIndex:1,maxWidth:820,animation:'fadeUp .8s ease forwards'}}>
+          <div style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(56,189,248,.08)',border:'1px solid rgba(56,189,248,.2)',padding:'6px 16px',borderRadius:99,marginBottom:28,fontFamily:'JetBrains Mono,monospace',fontSize:'.72rem',color:'#7dd3fc'}}>
+            <span style={{width:7,height:7,borderRadius:'50%',background:'#34d399',display:'inline-block',animation:'pulse 1.5s infinite'}}/>
+            Open to Data Science Internships
+          </div>
+          <h1 style={{fontSize:'clamp(2.4rem,6vw,4.2rem)',fontWeight:800,lineHeight:1.08,letterSpacing:'-.03em',marginBottom:10}}>
+            Hi, I'm <span style={{color:'#38bdf8',textShadow:'0 0 32px rgba(56,189,248,.35)'}}>Vignesh S</span>
+          </h1>
+          <p style={{fontSize:'clamp(.95rem,2vw,1.05rem)',color:'#64748b',marginBottom:14,fontWeight:500}}>B.Tech — AI & Data Science · St. Peter's College · 2024–2028</p>
+          <div style={{marginBottom:28,minHeight:'2em'}}>
+            <Typewriter words={['Machine Learning Engineer','Data Science Enthusiast','Python Developer','Problem Solver','AI Researcher']}/>
+          </div>
+          <p style={{fontSize:'1rem',color:'#94a3b8',maxWidth:580,margin:'0 auto 40px',lineHeight:1.82}}>
+            Passionate about building real-world AI solutions — from anomaly detection to predictive analytics. I turn raw data into meaningful insights using Python, ML, and statistical thinking.
+          </p>
+          <div style={{display:'flex',gap:12,justifyContent:'center',flexWrap:'wrap',marginBottom:56}}>
+            <button onClick={()=>scrollTo('projects')} style={{padding:'13px 28px',borderRadius:99,fontWeight:700,fontSize:'.9rem',cursor:'pointer',fontFamily:'Inter,sans-serif',background:'linear-gradient(135deg,#38bdf8,#6366f1)',color:'#fff',border:'none',boxShadow:'0 6px 24px rgba(56,189,248,.4)'}}
+              onMouseEnter={e=>e.target.style.transform='translateY(-3px)'} onMouseLeave={e=>e.target.style.transform=''}>
+              View Projects
+            </button>
+            <a href="Vignesh_S_Resume.pdf" target="_blank" style={{padding:'13px 28px',borderRadius:99,fontWeight:600,fontSize:'.9rem',textDecoration:'none',display:'inline-block',background:'transparent',color:'#f1f5f9',border:'1px solid rgba(56,189,248,.3)'}}>
+              View Resume
             </a>
-        </p>
-
-        <p>
-            💻 <strong>GitHub:</strong>
-            <a href="https://github.com/VigneshSivakumar-hen" target="_blank">
-                github.com/VigneshSivakumar-hen
+            <a href="Vignesh_S_Resume.pdf" download style={{padding:'13px 28px',borderRadius:99,fontWeight:600,fontSize:'.9rem',textDecoration:'none',display:'inline-block',background:'rgba(56,189,248,.08)',color:'#38bdf8',border:'1px solid rgba(56,189,248,.2)'}}>
+              Download CV ↓
             </a>
-        </p>
+          </div>
+          <div style={{display:'flex',gap:0,justifyContent:'center',paddingTop:32,borderTop:'1px solid rgba(56,189,248,.1)'}}>
+            {[{n:'7.41',l:'CGPA'},{n:'3+',l:'Projects'},{n:'5+',l:'Certifications'},{n:'12+',l:'Skills'}].map((s,i)=>(
+              <div key={s.l} style={{textAlign:'center',padding:'0 28px',borderRight:i<3?'1px solid rgba(255,255,255,.07)':'none'}}>
+                <div style={{fontFamily:'JetBrains Mono,monospace',fontSize:'2rem',fontWeight:800,color:'#38bdf8',lineHeight:1}}>{s.n}</div>
+                <div style={{fontSize:'.68rem',textTransform:'uppercase',letterSpacing:'.1em',color:'#475569',marginTop:5}}>{s.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    </section>
+      {/* ABOUT */}
+      <section id="about" style={{padding:'90px 24px',background:'linear-gradient(135deg,#080f1f,#0a1428)'}}>
+        <div style={{maxWidth:1100,margin:'auto'}}>
+          <SectionHead label="// who I am" title="About Me"/>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(260px,1fr))',gap:22}}>
+            {[
+              {e:'🎓',t:'Education',body:<>
+                <span style={{color:'#38bdf8',fontWeight:600}}>B.Tech in AI & Data Science</span><br/>
+                St. Peter's College of Engineering & Technology<br/>
+                2024 – 2028 · <span style={{color:'#34d399',fontWeight:600}}>CGPA: 7.41 / 10</span>
+              </>},
+              {e:'🚀',t:'What I Do',body:'I build real-world AI & data science solutions — from ML-based intrusion detection to predictive analytics dashboards. I enjoy EDA, feature engineering, and turning raw data into insights.'},
+              {e:'🎯',t:'Currently Seeking',body:<>A <span style={{color:'#38bdf8',fontWeight:600}}>Data Science Internship</span> where I can apply analytical and problem-solving skills in a real-world environment and keep levelling up.</>},
+            ].map((c,i)=>(
+              <Reveal key={c.t} delay={i*120}>
+                <div style={{background:'rgba(15,23,42,.75)',backdropFilter:'blur(10px)',border:'1px solid rgba(56,189,248,.1)',borderRadius:20,padding:'28px 24px',height:'100%',transition:'border-color .3s,transform .3s'}}
+                  onMouseEnter={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,.35)';e.currentTarget.style.transform='translateY(-4px)';}}
+                  onMouseLeave={e=>{e.currentTarget.style.borderColor='rgba(56,189,248,.1)';e.currentTarget.style.transform='';}}>
+                  <div style={{fontSize:'2.2rem',marginBottom:14}}>{c.e}</div>
+                  <h3 style={{fontWeight:700,marginBottom:10,fontSize:'1rem',color:'#f1f5f9'}}>{c.t}</h3>
+                  <p style={{color:'#94a3b8',fontSize:'.85rem',lineHeight:1.8}}>{c.body}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>© 2026 Vignesh S | AI & Data Science Portfolio</p>
-    </footer>
+      {/* SKILLS */}
+      <section id="skills" style={{padding:'90px 24px',background:'#060d1a',position:'relative',overflow:'hidden'}}>
+        <div style={{position:'absolute',inset:0,background:'radial-gradient(ellipse 60% 50% at 80% 50%,rgba(99,102,241,.05) 0%,transparent 60%)',pointerEvents:'none'}}/>
+        <div style={{maxWidth:1100,margin:'auto',position:'relative',zIndex:1}}>
+          <SectionHead label="// what I know" title="Technical Skills"/>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(300px,1fr))',gap:22,marginBottom:32}}>
+            {[SKILLS.slice(0,6),SKILLS.slice(6)].map((group,gi)=>(
+              <Reveal key={gi} delay={gi*150}>
+                <div style={{background:'rgba(15,23,42,.75)',border:'1px solid rgba(56,189,248,.08)',borderRadius:20,padding:'26px 22px'}}>
+                  <p style={{fontFamily:'JetBrains Mono,monospace',fontSize:'.65rem',color:'#6366f1',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:20}}>{gi===0?'Core Skills':'Tools & Libraries'}</p>
+                  {group.map((s,i)=><SkillBar key={s.name} {...s} delay={i*70}/>)}
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal delay={200}>
+            <p style={{fontFamily:'JetBrains Mono,monospace',fontSize:'.65rem',color:'#38bdf8',textTransform:'uppercase',letterSpacing:'.1em',marginBottom:14}}>Core Competencies</p>
+            <div style={{display:'flex',flexWrap:'wrap',gap:9}}>
+              {COMPETENCIES.map(t=>(
+                <span key={t} style={{background:'rgba(56,189,248,.07)',border:'1px solid rgba(56,189,248,.18)',color:'#7dd3fc',padding:'7px 16px',borderRadius:99,fontSize:'.76rem',fontFamily:'JetBrains Mono,monospace',cursor:'default',transition:'all .2s'}}
+                  onMouseEnter={e=>{e.target.style.background='linear-gradient(135deg,#38bdf8,#6366f1)';e.target.style.color='#fff';e.target.style.transform='scale(1.06)';e.target.style.border='1px solid transparent';}}
+                  onMouseLeave={e=>{e.target.style.background='rgba(56,189,248,.07)';e.target.style.color='#7dd3fc';e.target.style.transform='';e.target.style.border='1px solid rgba(56,189,248,.18)';}}>
+                  {t}
+                </span>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
 
-    <script src="script.js"></script>
+      {/* PROJECTS */}
+      <section id="projects" style={{padding:'90px 24px',background:'linear-gradient(135deg,#080f1f,#0a1428)'}}>
+        <div style={{maxWidth:1100,margin:'auto'}}>
+          <SectionHead label="// what I've built" title="Featured Projects"/>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(290px,1fr))',gap:22}}>
+            {PROJECTS.map((p,i)=><ProjCard key={p.title} p={p} i={i}/>)}
+          </div>
+        </div>
+      </section>
 
+      {/* CERTIFICATES */}
+      <section id="certs" style={{padding:'90px 24px',background:'#060d1a'}}>
+        <div style={{maxWidth:1100,margin:'auto'}}>
+          <SectionHead label="// credentials" title="Certificates"/>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(250px,1fr))',gap:20}}>
+            {CERTS.map((c,i)=><CertCard key={c.title} c={c} i={i}/>)}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT */}
+      <section id="contact" style={{padding:'90px 24px',background:'linear-gradient(135deg,#080f1f,#020617)',textAlign:'center'}}>
+        <div style={{maxWidth:620,margin:'auto'}}>
+          <Reveal>
+            <p style={{fontFamily:'JetBrains Mono,monospace',fontSize:'.7rem',color:'#38bdf8',textTransform:'uppercase',letterSpacing:'.14em',marginBottom:6}}>// get in touch</p>
+            <h2 style={{fontSize:'clamp(1.6rem,3.5vw,2.4rem)',fontWeight:800,letterSpacing:'-.02em',marginBottom:12}}>Let's Connect</h2>
+            <div style={{width:56,height:4,background:'linear-gradient(90deg,#38bdf8,#6366f1)',borderRadius:4,margin:'0 auto 28px'}}/>
+            <p style={{color:'#94a3b8',marginBottom:36,lineHeight:1.82,fontSize:'.95rem'}}>
+              Open to Data Science internships and entry-level roles. Whether you have an opportunity or just want to say hi — inbox is open.
+            </p>
+            <a href="mailto:vigneshsivakumar495@gmail.com" style={{display:'inline-block',fontFamily:'JetBrains Mono,monospace',fontSize:'.9rem',color:'#f59e0b',background:'rgba(245,158,11,.08)',border:'1px solid rgba(245,158,11,.25)',padding:'12px 24px',borderRadius:10,marginBottom:36,textDecoration:'none'}}
+              onMouseEnter={e=>e.target.style.background='rgba(245,158,11,.15)'} onMouseLeave={e=>e.target.style.background='rgba(245,158,11,.08)'}>
+              📧 vigneshsivakumar495@gmail.com
+            </a>
+            <div style={{display:'flex',justifyContent:'center',gap:12,flexWrap:'wrap'}}>
+              {[
+                {href:'https://www.linkedin.com/in/vignesh-s-04-11-2006-nov',label:'💼 LinkedIn',c:'#38bdf8'},
+                {href:'https://github.com/VigneshSivakumar-hen',label:'🐙 GitHub',c:'#a78bfa'},
+                {href:'Vignesh_S_Resume.pdf',label:'📄 Resume',c:'#34d399'},
+              ].map(s=>(
+                <a key={s.label} href={s.href} target="_blank" style={{display:'inline-flex',alignItems:'center',gap:7,padding:'11px 22px',borderRadius:10,border:`1px solid ${s.c}30`,background:`${s.c}0a`,color:s.c,fontWeight:600,fontSize:'.85rem',textDecoration:'none',transition:'transform .2s,border-color .2s'}}
+                  onMouseEnter={e=>{e.currentTarget.style.transform='translateY(-3px)';e.currentTarget.style.borderColor=s.c;}}
+                  onMouseLeave={e=>{e.currentTarget.style.transform='';e.currentTarget.style.borderColor=`${s.c}30`;}}>
+                  {s.label}
+                </a>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* FOOTER */}
+      <footer style={{background:'linear-gradient(135deg,#010409,#060d1a)',color:'#475569',textAlign:'center',padding:'22px',borderTop:'1px solid rgba(56,189,248,.08)',fontSize:'.8rem'}}>
+        © 2026 Vignesh S &nbsp;·&nbsp; AI & Data Science Portfolio &nbsp;·&nbsp;
+        <span style={{fontFamily:'JetBrains Mono,monospace',color:'#38bdf8'}}>Built with React ⚛️</span>
+      </footer>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
 </body>
-
 </html>
